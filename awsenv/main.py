@@ -97,4 +97,4 @@ def main():
         session_duration=args.session_duration,
         refresh=args.refresh,
     )
-    print to_environment(profile.to_envvars())  # noqa
+    print(to_environment(profile.to_envvars()))  # noqa

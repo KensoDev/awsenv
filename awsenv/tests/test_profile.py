@@ -28,7 +28,7 @@ def custom_config(profile, role_arn=None):
     Inject a temporary AWS configuration, overriding ~/.aws/config.
     """
     with NamedTemporaryFile() as file_:
-        file_.write(dedent("""\
+        content = dedent("""\
             [default]
             region = us-west-2
 
@@ -38,7 +38,8 @@ def custom_config(profile, role_arn=None):
         """.format(
             profile,
             "role_arn = {}".format(role_arn) if role_arn else "",
-        )))
+        ))
+        file_.write(content.encode("utf-8"))
         file_.flush()
         environ["AWS_CONFIG_FILE"] = file_.name
         try:
